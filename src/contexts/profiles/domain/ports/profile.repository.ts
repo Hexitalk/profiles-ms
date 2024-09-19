@@ -5,6 +5,6 @@ export abstract class ProfileRepository {
   abstract update(profile: ProfileModel): Promise<ProfileModel>;
   abstract delete(id: string): Promise<ProfileModel>;
   abstract findById(id: string): Promise<ProfileModel>;
-  abstract findByUserId(user_id: string): Promise<ProfileModel>;
+  abstract findByUserId(userId: string): Promise<ProfileModel>;
   abstract findListByIds(ids: string[]): Promise<ProfileModel[]>;
 }

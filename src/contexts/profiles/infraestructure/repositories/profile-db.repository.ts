@@ -70,8 +70,8 @@ export class ProfileDbRepository extends ProfileRepository {
     return ProfileModel.createFromDb(profile.toObject());
   }
 
-  async findByUserId(user_id: string): Promise<ProfileModel> {
-    const profile = await this.profileModel.findOne({ user_id }).exec();
+  async findByUserId(userId: string): Promise<ProfileModel> {
+    const profile = await this.profileModel.findOne({ user_id: userId }).exec();
 
     if (!profile) {
       throw new NotFoundDatabaseException('profile');

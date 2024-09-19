@@ -28,6 +28,11 @@ const ProfileMongoSchema = new mongoose.Schema(
       enum: Object.values(GenderEnum),
       required: true,
     },
+    online_status: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
     province_id: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,

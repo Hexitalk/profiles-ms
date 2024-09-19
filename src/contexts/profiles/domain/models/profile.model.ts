@@ -7,6 +7,7 @@ export interface ProfileModelInterface {
   image: string;
   date_birth: string;
   gender: GenderEnum;
+  online_status: boolean;
   province_id: string;
   country_id: string;
 }
@@ -18,6 +19,7 @@ export interface ProfileModelInterfaceDb {
   image: string;
   date_birth: string;
   gender: GenderEnum;
+  online_status: boolean;
   province_id: string;
   country_id: string;
 }
@@ -31,6 +33,7 @@ export class ProfileModel {
       user_id: attributes.user_id ?? undefined,
       date_birth: attributes.date_birth ?? '',
       gender: attributes.gender ?? GenderEnum.MALE,
+      online_status: attributes.online_status ?? false,
       province_id: attributes.province_id ?? '',
       country_id: attributes.country_id ?? '',
       image: attributes.image ?? '',
@@ -46,6 +49,7 @@ export class ProfileModel {
       user_id: attributes.user_id ?? undefined,
       date_birth: attributes.date_birth ?? '',
       gender: attributes.gender ?? GenderEnum.MALE,
+      online_status: attributes.online_status ?? false,
       province_id: attributes.province_id ?? '',
       country_id: attributes.country_id ?? '',
       image: attributes.image ?? '',
