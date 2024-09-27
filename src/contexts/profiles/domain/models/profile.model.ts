@@ -58,7 +58,19 @@ export class ProfileModel {
   }
 
   toInterface(): ProfileModelInterface {
-    return { ...this.attributes };
+    return {
+      ...this.attributes,
+      id: this.attributes.id.toString(),
+      user_id: this.attributes.user_id
+        ? this.attributes.user_id.toString()
+        : null,
+      province_id: this.attributes.province_id
+        ? this.attributes.province_id.toString()
+        : null,
+      country_id: this.attributes.country_id
+        ? this.attributes.country_id.toString()
+        : null,
+    };
   }
 
   toInterfaceDb(): ProfileModelInterfaceDb {

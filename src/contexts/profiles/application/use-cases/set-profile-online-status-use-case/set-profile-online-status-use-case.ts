@@ -38,17 +38,18 @@ export class SetProfileOnlineStatusUseCase {
     });
 
     try {
-      const updatedProfile: ProfileModel =
-        await this.profileRepository.update(profileModelUpdate);
+      await this.profileRepository.update(profileModelUpdate);
 
-      const payloadSocketEmit: NatsPayloadInterface<typeof updatedProfile> = {
+      const payloadSocketEmit: NatsPayloadInterface<{
+        userId: string;
+      }> = {
         ...config,
-        data: updatedProfile,
+        data: { userId },
       };
 
       await firstValueFrom(
         this.client.send(
-          { cmd: 'socket.profile-change-emit' },
+          { cmd: 'socket.hub-propagate-emit' },
           payloadSocketEmit,
         ),
         { defaultValue: void 0 },

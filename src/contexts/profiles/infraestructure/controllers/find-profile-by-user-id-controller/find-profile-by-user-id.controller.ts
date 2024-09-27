@@ -12,6 +12,7 @@ export class FindProfileByUserIdController {
   @MessagePattern({ cmd: 'profiles.find-profile-by-user-id' })
   run(@Payload() payload: NatsPayloadInterface<string>) {
     const { data: user_id, ...config } = payload;
+
     return this.findProfileByUserIdUseCase.run(user_id, config);
   }
 }
