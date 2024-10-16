@@ -1,20 +1,27 @@
 steps:
   - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
     args:
-      [
-        'build',
-        '-t',
-        'europe-southwest1-docker.pkg.dev/hexitalk/hexitalk-img-registry/profiles-ms',
-        '-f',
-        'dockerfile.prod',
-        '--platform=linux/amd64',
-        '.',
-      ]
+      - -c
+      - |
+        docker build -t europe-southwest1-docker.pkg.dev/hexitalk/hexitalk-img-registry/profiles-ms -f dockerfile.prod --platform=linux/amd64 --build-arg PROFILES_MS_PORT=$$PROFILES_MS_PORT --build-arg PROFILES_DB_URL=$$PROFILES_DB_URL --build-arg NATS_PORT=$$NATS_PORT .
+    secretEnv: ['PROFILES_MS_PORT', 'NATS_PORT', 'PROFILES_DB_URL']
+
   - name: 'gcr.io/cloud-builders/docker'
     args:
       [
         'push',
         'europe-southwest1-docker.pkg.dev/hexitalk/hexitalk-img-registry/profiles-ms',
       ]
+
+availableSecrets:
+  secretManager:
+    - versionName: projects/188352291421/secrets/profiles_ms_port/versions/1
+      env: 'PROFILES_MS_PORT'
+    - versionName: projects/188352291421/secrets/nats_port/versions/1
+      env: 'NATS_PORT'
+    - versionName: projects/188352291421/secrets/profiles_db_url/versions/1
+      env: 'PROFILES_DB_URL'
+
 options:
   logging: CLOUD_LOGGING_ONLY
